@@ -15,9 +15,9 @@
     "use strict";
 
     /**
-     * chart构造函数
-     * @param selector : dom 's Id
-     * @returns {Function} arguments:echarts 's options
+     * Chart构造函数
+     * @param selector: id
+     * @param options
      * @constructor
      */
     function Chart(selector, options){
@@ -85,7 +85,7 @@
                 title: {
                     text: ""
                 },
-                xAxis: [],
+                //xAxis: [],
                 series: []
             }];
             this.render();
@@ -123,6 +123,7 @@
         bar: function(){
             return this["axis"]()
         },
+        // 纵向柱状图
         bar_v: function(){
             extend(this.data[0],{
                 xAxis: [{
@@ -149,7 +150,7 @@
 
             __data.series.forEach(function(c){
                 c.type = __type;
-                if (self.options.type == 'bar' && __data.xAxis[0].type != 'value') {
+                if (self.options.type === 'bar' && __data.xAxis[0].type !== 'value') {
                     c.barMaxWidth = 100;
                 }
                 //混合图表样式
@@ -180,7 +181,6 @@
                         axisLabel: {
                             interval: 0
                         }
-                        //boundaryGap: __type == 'line'?false:true
                     }
                 ]
             }, __data);
@@ -199,7 +199,7 @@
                 }
             });
             __data.series.forEach(function(c, i){
-                if (__type[i] === 'bar' && __data.xAxis[0].type != 'value') {
+                if (__type[i] === 'bar' && __data.xAxis[0].type !== 'value') {
                     c.barMaxWidth = 100;
                 }
                 c.type = __type[i];
