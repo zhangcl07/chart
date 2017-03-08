@@ -17,52 +17,6 @@
     };
     ajax.send();
 
-    function transData(data){
-        var newArr = [],
-            newObj = {
-                title: {
-                    text: "基金"
-                },
-                xAxis: [{
-                    data: []
-                }],
-                series: []
-            };
-        var sumFund = 0;
-        for(var key in data){
-            var _obj = {
-                name: data[key]["name"],
-                data: []
-            };
-            newObj.series.push(_obj);
-            var funds = data[key]["funds"];
-            for(var i=0;i< funds.length;i++){
-                sumFund+=funds[i]["fund"]; // 求和
-                // 拼接echarts数据 start
-                _obj.data.push(funds[i]["fund"]);
-                if(newObj.xAxis[0].data.indexOf(funds[i]["time"])<0){
-                    newObj.xAxis[0].data.push(funds[i]["time"])
-                }
-                // 拼接echarts数据 end
-            }
-        }
-        newObj.xAxis[0].data.sort(function(a,b){
-            var aT = new Date(a),
-                bT = new Date(b);
-            if(aT > bT){
-                return 1
-            }else{
-                return -1
-            }
-        });
-        // console.log(newObj);
-        newArr.push(newObj);
-        return {
-            chartData: newArr,
-            sum: sumFund
-        }
-    }
-
     var my = new Chart("chartsView", {
         height: "480px",
         type: "map",
