@@ -23,15 +23,26 @@
     function Chart(selector, options){
         // var self = this;
         // this.selector = "#"+selector;
-
-        extend(this.options, options);
+        // console.log(options);
+        this.options = extend({
+            height: "480px", // 自带单位px，方便自定义各种单位，如%,em,rem……
+            type: "line", // type: 1.{string}代表单一类型图表；2.{array}代表混合类型图表
+            common: {
+            series: {}, // 公共样式
+            yLabel: [], // y轴label文案
+                xLabel: [], // x轴label文案
+                showTooltips: true, //是否显示tooltips
+                axisIndex: [0,0,1] // 当有两个y轴显示时会用到，对应第几条数据用第几个yAxis
+            }
+        }, options || {});
+        // console.log(this.options);
         try{
             var chartDom = document.getElementById(selector);
             // 设置高度
-            chartDom.style.height = options.height || "480px";
+            chartDom.style.height = this.options.height || "480px";
         }
         catch (e){
-            throw("不存在id为"+selector+"的DOM节点")
+            throw ("不存在id为"+selector+"的DOM节点")
         }
         this.dom = chartDom;
         this.data = [];
@@ -41,17 +52,6 @@
     // 原型
     Chart.prototype = {
         constructor: Chart,
-        options: {
-            height: "480px", // 自带单位px，方便自定义各种单位，如%,em,rem……
-            type: "line", // type: 1.{string}代表单一类型图表；2.{array}代表混合类型图表
-            common: {
-                series: {}, // 公共样式
-                yLabel: [], // y轴label文案
-                xLabel: [], // x轴label文案
-                showTooltips: true, //是否显示tooltips
-                axisIndex: [0,0,1] // 当有两个y轴显示时会用到，对应第几条数据用第几个yAxis
-            }
-        },
         loading: function(){
             this.ECHART.showLoading({
                 //text: '加载中',

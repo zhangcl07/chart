@@ -56,7 +56,7 @@
             // axisIndex: [0,0,1]
         }
     });
-    // console.log(my);
+    console.log(my);
     var button = document.getElementById("search");
     button.addEventListener("click",function(){
         my.loading();
