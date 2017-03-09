@@ -17,13 +17,12 @@
     /**
      * Chart构造函数
      * @param selector: id
-     * @param options
+     * @param options: 可选参数
      * @constructor
      */
     function Chart(selector, options){
         // var self = this;
         // this.selector = "#"+selector;
-        // console.log(options);
         this.options = extend({
             height: "480px", // 自带单位px，方便自定义各种单位，如%,em,rem……
             type: "line", // type: 1.{string}代表单一类型图表；2.{array}代表混合类型图表
@@ -38,7 +37,7 @@
         // console.log(this.options);
         try{
             var chartDom = document.getElementById(selector);
-            // 设置高度
+            // 设置高度，默认480px
             chartDom.style.height = this.options.height || "480px";
         }
         catch (e){

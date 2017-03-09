@@ -8,7 +8,7 @@
     var ajax = new XMLHttpRequest();
     ajax.open("get","/chart/data/testdata.json",true);
     ajax.onload = function(res){
-        if (ajax.status == 200) {
+        if (ajax.status === 200) {
             var data = JSON.parse(ajax.response);
             currentData = data.mapData;
         } else {
@@ -17,61 +17,102 @@
     };
     ajax.send();
 
-    var my = new Chart("chartsView", {
-        height: "480px",
+    // var my = new Chart("chartsView", {
+    //     type: "map",
+    //     common: {
+    //         series: {
+    //             mapType: 'china',
+    //             itemStyle: {
+    //                 normal: { label: { show: true } },
+    //                 emphasis: { label: { show: true } }
+    //             }
+    //         }
+    //         // 折线图加线
+    //         // series: {
+    //         //     markLine: {
+    //         //         data: [{
+    //         //             name: '平均线',
+    //         //             // 支持 'average', 'min', 'max'
+    //         //             type: 'average'
+    //         //         }]
+    //         //
+    //         //     }
+    //         // }
+    //         // series: {
+    //         //     label: {
+    //         //         normal: {
+    //         //             textStyle: {
+    //         //                 color: '#000'
+    //         //             },
+    //         //             show: true,
+    //         //             position: 'inside',
+    //         //             formatter: '{a}'
+    //         //         }
+    //         //     }
+    //         // },
+    //         // yLabel: ["百分比"],
+    //         // xLabel: ["百分比"]
+    //         // axisIndex: [0,0,1]
+    //     }
+    // });
+    // console.log("constructor" in my);
+    var views = document.getElementById("chartsView"),
+        button = document.getElementById("search");
+
+    var oFragmeng = document.createDocumentFragment();
+    for(var i=0;i<2;i++){
+        var view = document.createElement("div");
+        view.id = "chartView"+i;
+        views.appendChild(view);
+        oFragmeng.appendChild(view);
+    }
+    views.appendChild(oFragmeng);
+
+    var chartView0 = new Chart("chartView0", {
         type: "map",
         common: {
             series: {
                 mapType: 'china',
                 itemStyle: {
-                    normal: { label: { show: true } },
-                    emphasis: { label: { show: true } }
+                    normal: {label: {show: true}},
+                    emphasis: {label: {show: true}}
                 }
             }
-            // 折线图加线
-            // series: {
-            //     markLine: {
-            //         data: [{
-            //             name: '平均线',
-            //             // 支持 'average', 'min', 'max'
-            //             type: 'average'
-            //         }]
-            //
-            //     }
-            // }
-            // series: {
-            //     label: {
-            //         normal: {
-            //             textStyle: {
-            //                 color: '#000'
-            //             },
-            //             show: true,
-            //             position: 'inside',
-            //             formatter: '{a}'
-            //         }
-            //     }
-            // },
-            // yLabel: ["百分比"],
-            // xLabel: ["百分比"]
-            // axisIndex: [0,0,1]
         }
     });
-    console.log(my);
-    var button = document.getElementById("search");
+
+    var chartView1 = new Chart("chartView1", {
+        type: "bar_v",
+        common: {
+        }
+    });
+
     button.addEventListener("click",function(){
-        my.loading();
+        // my.loading();
+        chartView0 && chartView0.loading();
+        chartView1 && chartView1.loading();
+
         setTimeout(function(){
             // currentData.info[0].title.text = Date.now();
 
+            var mapData = currentData.info[0],
+                barData = currentData.info[1];
+
             // 地图需要设置区间
-            extend(currentData.info[0],{
+            extend(mapData,{
                 visualMap: {
                     min: 0,
                     max: parseInt(currentData.info[0].series[0].data[0].value)
                 }
             });
-            my.data = currentData.info;
-            my.render()
+
+            chartView0.data = [mapData];
+            chartView1.data = [barData];
+            chartView0.render();
+            chartView1.render();
+
+            // my.data = currentData.info;
+
         },500);
     },false)
 
