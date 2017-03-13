@@ -2,7 +2,7 @@
  * Created by zhangcl on 2017/3/6.
  * Github: https://github.com/zhangcl07/chart
  */
-(function (root, factory) {
+;(function (root, factory) {
     if ( typeof define === 'function' && define.amd ) {
         define('Chart', factory(root));
     } else if ( typeof exports === 'object' ) {
@@ -21,14 +21,14 @@
      * @constructor
      */
     function Chart(selector, options){
-        // var self = this;
+        var self = this;
         // this.selector = "#"+selector;
         this.options = extend({
             height: "480px", // 自带单位px，方便自定义各种单位，如%,em,rem……
             type: "line", // type: 1.{string}代表单一类型图表；2.{array}代表混合类型图表
             common: {
-            series: {}, // 公共样式
-            yLabel: [], // y轴label文案
+                series: {}, // 公共样式
+                yLabel: [], // y轴label文案
                 xLabel: [], // x轴label文案
                 showTooltips: true, //是否显示tooltips
                 axisIndex: [0,0,1] // 当有两个y轴显示时会用到，对应第几条数据用第几个yAxis
@@ -47,6 +47,7 @@
         this.data = [];
         // 初始化chart
         this.ECHART = this.init();
+
     }
     // 原型
     Chart.prototype = {
@@ -60,6 +61,18 @@
         },
         init: function(){
             return echarts.init(this.dom,"vintage");
+        },
+        resize: function(){
+            // console.log(this);
+            var self = this;
+            if (window.requestAnimationFrame) {
+                window.requestAnimationFrame(cr);
+            } else {
+                setTimeout(cr, 66);
+            }
+            function cr(){
+                self.ECHART.resize();
+            }
         },
         render: function(){
             this.ECHART.hideLoading();

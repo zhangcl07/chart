@@ -57,7 +57,8 @@
     // });
     // console.log("constructor" in my);
     var views = document.getElementById("chartsView"),
-        button = document.getElementById("search");
+        button = document.getElementById("search"),
+        resizeButton = document.getElementById("resize");
 
     var oFragmeng = document.createDocumentFragment();
     for(var i=0;i<2;i++){
@@ -87,6 +88,10 @@
         }
     });
 
+    resizeButton.addEventListener("click",function(){
+        document.getElementById("chartView0").style.width = "500px";
+        chartView0.resize();
+    },false);
     button.addEventListener("click",function(){
         // my.loading();
         chartView0 && chartView0.loading();
