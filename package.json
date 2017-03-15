@@ -1,0 +1,47 @@
+{
+  "name": "chart",
+  "version": "1.0.0",
+  "description": "chart",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.4.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.24.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.17.1",
+    "eslint-loader": "^1.6.3",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.2.1",
+    "mocha": "^3.2.0",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack --progress --colors --watch",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zhangcl07/chart.git"
+  },
+  "keywords": [
+    "chart"
+  ],
+  "author": "zhangcl07",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhangcl07/chart/issues"
+  },
+  "homepage": "https://github.com/zhangcl07/chart"
+}

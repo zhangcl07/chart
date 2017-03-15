@@ -6,7 +6,7 @@
 
     // ajax
     var ajax = new XMLHttpRequest();
-    ajax.open("get","/chart/data/testdata.json",true);
+    ajax.open("get","./../ES6/data/testdata.json",true);
     ajax.onload = function(res){
         if (ajax.status === 200) {
             var data = JSON.parse(ajax.response);
@@ -16,7 +16,7 @@
         }
     };
     ajax.send();
-
+    var Chart = window["Chart"].Chart;
     // var my = new Chart("chartsView", {
     //     type: "map",
     //     common: {
