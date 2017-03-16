@@ -1,14 +1,19 @@
 var webpack = require('webpack');
 var path = require('path');
 var projectName = 'Chart';
+var fileName = 'chart.common';
 var outputFile = 'chart.common.js';
 
 var config = {
-    entry: './src/chart.common.js',
+    entry: {
+        [fileName]: './src/chart.common.js',
+        line: './examples/line.js',
+        main: './examples/main.js'
+    },
     devtool: 'source-map',
     output: {
-        path: __dirname+ '/dist',
-        filename: outputFile,
+        path: path.join(__dirname, 'dist'),
+        filename: "[name].js",
         library: projectName,
         libraryTarget: 'umd',
         umdNamedDefine: true

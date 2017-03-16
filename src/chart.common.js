@@ -4,6 +4,7 @@
  */
 
 import {extend} from "./common/extend";
+import {isArray} from "./common/isArray";
 
 class Chart {
     constructor(selector, options) {
@@ -14,15 +15,16 @@ class Chart {
             type: "line", // type: 1.{string}代表单一类型图表；2.{array}代表混合类型图表
             common: {
                 series: {}, // 公共样式
-                yLabel: [], // y轴label文案
+                yLabel: [], // y轴label文案,与axisIndex同时用
                 xLabel: [], // x轴label文案
                 showTooltips: true, //是否显示tooltips
-                axisIndex: [0, 0, 1] // 当有两个y轴显示时会用到，对应第几条数据用第几个yAxis
+                axisIndex: [] // 当有两个y轴显示时会用到，对应第几条数据用第几个yAxis
             }
         }, options || {});
         // console.log(this.options);
+        let chartDom = null;
         try {
-            var chartDom = document.getElementById(selector);
+            chartDom = document.getElementById(selector);
             // 设置高度，默认480px
             chartDom.style.height = this.options.height || "480px";
         }
@@ -181,10 +183,11 @@ class Chart {
             ],
             xAxis: [
                 {
-                    name: optionsCommon.xLabel[0] || '',
-                    axisLabel: {
-                        interval: 0
-                    }
+                    name: optionsCommon.xLabel[0] || ''
+                    // ,
+                    // axisLabel: {
+                    //     interval: 0
+                    // }
                 }
             ]
         }, __data);
@@ -203,6 +206,7 @@ class Chart {
                 name: c
             }
         });
+        console.log(__yAxis);
         __data.series.forEach(function (c, i) {
             if (__type[i] === 'bar' && __data.xAxis[0].type !== 'value') {
                 c.barMaxWidth = 100;
@@ -228,12 +232,14 @@ class Chart {
                 },
                 top: 10
             },
-            xAxis: []
+            xAxis: [],
+            yAxis: [{
+                type: "value"
+            }]
         }, __data);
 
-        if (!__option.yAxis) {
-            __option.yAxis = __yAxis;
-        }
+        //合并y轴
+        extend(__option.yAxis,__yAxis);
 
         return __option;
     }
