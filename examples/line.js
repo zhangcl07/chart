@@ -17,7 +17,7 @@ function stateChange(){
     }
 }
 
-let Chart = window['Chart'].Chart;
+let Chart = window['Chart'];
 let my = new Chart("chartsView", {
     type: ["bar","bar","line"],
     common: {

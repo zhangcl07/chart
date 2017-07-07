@@ -320,4 +320,4 @@ class Chart {
     }
 }
 
-export {Chart};
+export default Chart;

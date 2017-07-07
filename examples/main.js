@@ -15,7 +15,7 @@ ajax.onload = function(res){
 };
 ajax.send();
 
-let Chart = window['Chart'].Chart;
+let Chart = window['Chart'];
 
 let views = document.getElementById("chartsView"),
     button = document.getElementById("search"),

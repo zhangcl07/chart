@@ -23,14 +23,12 @@ var config = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                query: {
-                    presets: ['env']
-                },
-                exclude: /(node_modules|bower_components)/
+                exclude: /node_modules/
             }
         ]
     },
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
